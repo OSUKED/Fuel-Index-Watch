@@ -1,0 +1,15 @@
+name: Gas
+channels:
+  - conda-forge
+  - anaconda-fusion
+  - defaults
+dependencies:
+  - python=3.8
+  - jupyterlab
+  - pandas
+  - numpy
+  - seaborn
+  - matplotlib
+  - pip
+  - pip:
+      - ipypb
