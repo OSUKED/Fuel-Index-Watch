@@ -1,8 +1,10 @@
-name: Gas
+name: Fuel
+
 channels:
   - conda-forge
   - anaconda-fusion
   - defaults
+  
 dependencies:
   - python=3.8
   - jupyterlab
