@@ -42,9 +42,10 @@ query_GDP = lambda end_date=end_date, start_date='1999-01-01': query_stlouisfed(
 
 def query_alberta_hub_price():
     alberta_url = 'https://www.alberta.ca/alberta-natural-gas-reference-price.aspx'
-
+    r = requests.get(alberta_url)
+    
     df = (pd
-          .read_html(alberta_url)
+          .read_html(r.text)
           [1]
           .set_index('Unnamed: 0')
          )
