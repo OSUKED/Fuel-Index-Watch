@@ -1,6 +1,7 @@
 """
 Imports
 """
+import numpy as np
 import pandas as pd
 import io
 import json
@@ -80,6 +81,21 @@ def query_victoria_hub_price():
     s_price.index = s_price.index.astype(str)
 
     return s_price
+
+def save_europe_gas_volumes(
+    url: str = f'https://agsi.gie.eu/api',
+    fp: str = 'data/agsi.csv'
+):
+    r = requests.get(url, params={'date': end_date})
+    r.raise_for_status()
+
+    pd.concat([
+        pd.DataFrame(r.json()['data'][idx]['children']).drop(columns=['info', 'children'])
+        for idx 
+        in range(len(r.json()['data']))
+    ]).replace('-', np.nan).to_csv(fp, index=False)
+    
+    return
 
 
 """
@@ -191,6 +207,7 @@ data_queries = {
     },
 }
 
+save_europe_gas_volumes()
 series_name_to_data = query_data(data_queries)
 df_most_recent_values = get_most_recent_values(series_name_to_data)
 update_readme_time('README.md', df_most_recent_values)
